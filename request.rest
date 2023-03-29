@@ -1,0 +1,94 @@
+### Get User Data
+GET http://localhost:8000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsIm5hbWEiOiJkd2lwIiwiZW1haWwiOiJrb3Rha2VsZWt0cm9uaWtAZ21haWwuY29tIiwiaWF0IjoxNjcyNjE3MDIwLCJleHAiOjE2NzI2MTcwNTV9.1b51QIS3sm5Iv01asn_5gC1Aid_WdvssX7jvNGU9Jkk
+
+### Get Data Rumah Sakit
+GET http://localhost:5000/rumahsakit/3174063
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjYsIm5hbWEiOiJkd2lwIiwiZW1haWwiOiIzMTc0MDYzIiwicnNJZCI6IjMxNzQwNjMiLCJpYXQiOjE2NzMzMTI3ODYsImV4cCI6MTY3MzMxMjg0Nn0.qcfLrQ3OzX_FshenoRQ_paNbekK7kJtp2c90toAhYKE
+
+### Insert New User
+POST http://localhost:8000/users
+Content-Type: application/json
+
+{
+    "nama": "dwip",
+    "email": "kotakelektronik@gmail.com",
+    "password": "12345",
+    "rsId": "3174063"
+}
+
+
+###LOGIN ADMIN
+POST http://localhost:8000/apisirsadmin/login
+Content-Type: application/json
+
+{
+    "userName": "31",
+    "password": "12345"
+}
+
+### Logut
+DELETE http://localhost:8000/apisirsadmin/logout
+
+### Get Token
+GET http://localhost:8000/apisirsadmin/token
+
+### GET DATA KAB/KOTA
+GET http://localhost:8000/apisirsadmin/kabkota
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0NywibmFtYSI6Ikphd2EgQmFyYXQiLCJlbWFpbCI6IjMyIiwicnNJZCI6IjMyIiwiaWF0IjoxNjc4NDE5NDQ0LCJleHAiOjE2ODM2MDM0NDR9.GaeaubD71_7GTTLyhqBotmc8Kuhv6sSo3oA1RdqZkvc
+
+### GET DATA KAB/KOTA DINKES KAB
+# GET http://localhost:8000/apisirsadmin/kabkotaid
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0NywibmFtYSI6Ikphd2EgQmFyYXQiLCJlbWFpbCI6IjMyIiwicnNJZCI6IjMyIiwiaWF0IjoxNjc4NDA5MzI4LCJleHAiOjE2ODM1OTMzMjh9.ULmld4zIINQpFBXFMr7r7XOAZh7WhvAoo9jElvIPH_0
+
+
+### GET DATA RS BY KAB/KOTA
+GET http://localhost:8000/apisirsadmin/rumahsakit/3274
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0NywibmFtYSI6Ikphd2EgQmFyYXQiLCJlbWFpbCI6IjMyIiwicnNJZCI6IjMyIiwiaWF0IjoxNjc4MDY1NjU2LCJleHAiOjE2ODMyNDk2NTZ9.zypmgLidTXnuVEVZWxLqdlUDq_gVAfhIU0J_76KNx-k
+
+### GET DATA RL 3.7
+GET http://localhost:8000/apisirsadmin/rltigatitiktujuh/?koders=3274090&tahun=2022
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0NywibmFtYSI6Ikphd2EgQmFyYXQiLCJlbWFpbCI6IjMyIiwicnNJZCI6IjMyIiwiaWF0IjoxNjc5MjQyMDc3LCJleHAiOjE2NzkyNDIxMzd9.xI9RJDOqSr-M_I19GaOp6QrHvfJ3GI2fGsssdX82Ct4
+
+### GET DATA RL 3.12
+GET http://localhost:8000/apisirsadmin/rltigatitikduabelas/?koders=3274090&tahun=2022
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0NywibmFtYSI6Ikphd2EgQmFyYXQiLCJlbWFpbCI6IjMyIiwicnNJZCI6IjMyIiwiaWF0IjoxNjc5MjQ1NzcyLCJleHAiOjE2NzkyNDU4MzJ9.9C2yFvo9Mr1k1PxjHhTvjCWW7rfkkFlgMiaAm8FeWxA
+
+### GET DATA RL 3.13A
+GET http://localhost:8000/apisirsadmin/rltigatitiktigabelasa/?koders=3274090&tahun=2022
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0NywibmFtYSI6Ikphd2EgQmFyYXQiLCJlbWFpbCI6IjMyIiwicnNJZCI6IjMyIiwiaWF0IjoxNjc5MjQ1NzcyLCJleHAiOjE2NzkyNDU4MzJ9.9C2yFvo9Mr1k1PxjHhTvjCWW7rfkkFlgMiaAm8FeWxA
+
+### GET DATA RL 3.13B
+GET http://localhost:8000/apisirsadmin/rltigatitiktigabelasb/?koders=3274090&tahun=2022
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0NywibmFtYSI6Ikphd2EgQmFyYXQiLCJlbWFpbCI6IjMyIiwicnNJZCI6IjMyIiwiaWF0IjoxNjc5MjQ1NzcyLCJleHAiOjE2NzkyNDU4MzJ9.9C2yFvo9Mr1k1PxjHhTvjCWW7rfkkFlgMiaAm8FeWxA
+
+### GET DATA RL 5.4
+GET http://localhost:8000/apisirsadmin/rllimatitikempat/?koders=3174063&tahun=2022-01-01
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0NiwibmFtYSI6IkRLSSBQcm92aW5zaSAiLCJlbWFpbCI6IjMxIiwicnNJZCI6IjMxIiwiaWF0IjoxNjgwMDE2NTA2LCJleHAiOjE2ODAwMTY1NjZ9.-NmTEi5dHZwk5jvheDLu-FDN0_2V6Stc-EcqdpvNhDE
+
+### Validasi Input
+POST http://localhost:8000/apisirsadmin/validasi
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0NywiamVuaXNfdXNlcl9pZCI6MiwibmFtYSI6Ikphd2EgQmFyYXQiLCJlbWFpbCI6IjMyIiwicnNJZCI6IjMyIiwiaWF0IjoxNjc5OTk0OTg0LCJleHAiOjE2ODUxNzg5ODR9.DWijs60oUGeQx1ZkQj5e2WuSJ8dXih4nfr1QU8UrW8E
+
+{
+    "rlId": "1",
+    "tahun": "2020-01-01",
+    "statusValidasiId":1,
+    "catatan":"sudah divalidasi"
+}
+
+### Validasi Update
+PATCH http://localhost:8000/apisirsadmin/validasi/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0NywiamVuaXNfdXNlcl9pZCI6MiwibmFtYSI6Ikphd2EgQmFyYXQiLCJlbWFpbCI6IjMyIiwicnNJZCI6IjMyIiwiaWF0IjoxNjc5OTk1OTg3LCJleHAiOjE2ODUxNzk5ODd9.7AVWsbOLC1x7wsSfWjn8SgznNQgCR1Lx-ZND6xt4p8I
+
+{
+    "statusValidasiId":2,
+    "catatan":"sudah divalidasi jangan lupa bayar"
+}
+
+
+### GET DATA Validasi
+GET http://localhost:8000/apisirsadmin/validasi/?rsid=32&rlid=1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0NywibmFtYSI6Ikphd2EgQmFyYXQiLCJlbWFpbCI6IjMyIiwicnNJZCI6IjMyIiwiaWF0IjoxNjgwMDA4MjQ2LCJleHAiOjE2ODAwMDgzMDZ9.DGv6YQaGqitY-d2vB7C6kNkCELt7cMS0yWMNZA4KUPY
