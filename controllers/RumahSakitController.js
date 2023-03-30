@@ -5,22 +5,6 @@ export const getDataRumahSakit = (req, res) => {
         req.params.id
     ]
 
-    // getData(data, (err, results) => {
-    //     if (err) {
-    //         res.status(422).send({
-    //             status: false,
-    //             message: err
-    //         })
-    //         return
-    //     }
-    //     res.status(200).send({
-    //         status: true,
-    //         message: "data found",
-    //         data: results
-    //     })
-    // })
-
-
     rumahSakit.findAll({
         attributes: [
             ['RUMAH_SAKIT', 'nama'],
@@ -34,16 +18,16 @@ export const getDataRumahSakit = (req, res) => {
                 model: propinsi,
                 as: "propinsi",
                 attributes:[
-                    ['propinsi_kode', 'id'],
-                    ['propinsi_name', 'nama']
+                    ['id', 'id'],
+                    ['nama', 'nama']
                 ]
             },
             {
                 model: kabKota,
                 as: 'kabKota',
                 attributes:[
-                    ['kab_kota_id', 'id'],
-                    ['KAB/KOTA', 'nama']
+                    ['id', 'id'],
+                    ['nama', 'nama']
                 ]
             }
         ]
@@ -67,25 +51,48 @@ export const getDataRumahSakit = (req, res) => {
 }
 
 export const getDataRumahSakitFilterbyKabKotaId = (req, res) => {
-    dataRumahSakit.findAll({
-        where: {
-            kab_kota_id: req.params.kabkotaid
-        }
-    })
-    .then((results) => {
-        const message = results.length ? 'data found' : 'data not found'
-        res.status(200).send({
-            status: true,
-            message: message,
-            data: results
+    const count = req.user.rsId.length;
+    if(count==2){
+        dataRumahSakit.findAll({
+            where: {
+                kab_kota_id: req.query.kabkotaid
+            }
         })
-    })
-    .catch((err) => {
-        res.status(422).send({
-            status: false,
-            message: err
+        .then((results) => {
+            const message = results.length ? 'data found' : 'data not found'
+            res.status(200).send({
+                status: true,
+                message: message,
+                data: results
+            })
         })
-        return
-    })
-    // console.log(req.params.kabkotaid);
+        .catch((err) => {
+            res.status(422).send({
+                status: false,
+                message: err
+            })
+            return
+        })
+    } else if(count > 2){
+        dataRumahSakit.findAll({
+            where: {
+                kab_kota_id: req.user.rsId
+            }
+        })
+        .then((results) => {
+            const message = results.length ? 'data found' : 'data not found'
+            res.status(200).send({
+                status: true,
+                message: message,
+                data: results
+            })
+        })
+        .catch((err) => {
+            res.status(422).send({
+                status: false,
+                message: err
+            })
+            return
+        })
+    }
 }

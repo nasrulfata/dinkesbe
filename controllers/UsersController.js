@@ -59,7 +59,7 @@ export const login = (req, res) => {
         }
         bcrypt.compare(req.body.password, results[0].password, (error, compareResult) => {
             if (compareResult == false) {
-                res.status(401).send({
+                res.status(404).send({
                     status: false,
                     message: 'wrong password'
                 })
@@ -74,7 +74,6 @@ export const login = (req, res) => {
 
             const accessToken = jsonWebToken.sign(payloadObject, process.env.ACCESS_TOKEN_SECRET, {expiresIn: process.env.ACCESS_TOKEN_EXPIRESIN})
             jsonWebToken.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, result) => {
-                // console.log(result)
                 const refreshToken = jsonWebToken.sign(payloadObject, process.env.REFRESH_TOKEN_SECRET, {expiresIn: process.env.REFRESH_TOKEN_EXPIRESIN})
                 users.update({refresh_token: refreshToken},{
                     where: {
@@ -84,13 +83,14 @@ export const login = (req, res) => {
                 .then(() => {
                     res.cookie('refreshToken', refreshToken, {
                         httpOnly: true,
-                        maxAge: 24 * 60 * 60 * 1000
+                        // maxAge: 24 * 60 * 60 * 1000
+                        maxAge: 1000 * 60 * 60 * 24
                     })
                     res.status(201).send({
                         status: true,
                         message: "access token created",
                         data: {
-                            name: result[0].nama,
+                            name: results[0].nama,
                             access_token: accessToken
                         }
                     })
@@ -208,6 +208,64 @@ export const insertDataUser = (req, res) => {
     })
 }
 
+export const changePassword = async (req, res) => {
+    const schema = Joi.object({
+        passwordLama: Joi.string()
+            .required(),
+        passwordBaru: Joi.string()
+            .required(),
+        passwordBaruConfirmation: Joi.string()
+            .required().valid(Joi.ref('passwordBaru'))
+    })
+
+    const { error, value } =  schema.validate(req.body)
+    
+    if (error) {
+        res.status(404).send({
+            status: false,
+            message: error.details[0].message
+        })
+        return
+    }
+
+    try {
+        const passwordLama = await users.findOne({
+            attributes: ['password'],
+            where: {
+                id: req.params.id
+            }
+        })
+
+        const compareResult = await bcrypt.compare(req.body.passwordLama, passwordLama.dataValues.password)
+        if (!compareResult) {
+            res.status(404).json({
+                status: false,
+                message: 'password lama tidak sesuai'
+            })
+            return
+        }
+
+        const saltRound = 10
+        const plainPassword = req.body.passwordBaru
+        const password = await bcrypt.hash(plainPassword, saltRound)
+        const update = await users.update(
+            {
+                password: password
+            },
+            {
+                where: {
+                    id: req.params.id
+                }
+            }
+        )
+        res.status(200).json({
+            status: true,
+            message: update
+        })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 export const loginadmin = (req, res) => {
     const schema = Joi.object({
@@ -226,7 +284,7 @@ export const loginadmin = (req, res) => {
     }
 
     users.findAll({
-        attributes: ['id', 'nama','email', 'password', 'rs_id', 'created_at', 'modified_at'],
+        attributes: ['id', 'jenis_user_id','nama','email', 'password', 'rs_id', 'created_at', 'modified_at'],
         where:{
             email:req.body.userName,
             jenis_user_id: {
@@ -252,6 +310,7 @@ export const loginadmin = (req, res) => {
             }
             const payloadObject = {
                 id: results[0].id,
+                jenis_user_id: results[0].jenis_user_id,
                 nama: results[0].nama,
                 email: results[0].email,
                 rsId: results[0].rs_id
@@ -259,7 +318,6 @@ export const loginadmin = (req, res) => {
 
             const accessToken = jsonWebToken.sign(payloadObject, process.env.ACCESS_TOKEN_SECRET, {expiresIn: process.env.ACCESS_TOKEN_EXPIRESIN})
             jsonWebToken.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, result) => {
-                // console.log(result)
                 const refreshToken = jsonWebToken.sign(payloadObject, process.env.REFRESH_TOKEN_SECRET, {expiresIn: process.env.REFRESH_TOKEN_EXPIRESIN})
                 users.update({refresh_token: refreshToken},{
                     where: {

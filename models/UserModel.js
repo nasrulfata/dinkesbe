@@ -5,6 +5,9 @@ export const users = databaseSIRS.define('users', {
     nama: {
         type: DataTypes.STRING
     },
+    jenis_user_id: {
+        type: DataTypes.STRING
+    },
     email: {
         type: DataTypes.STRING
     },
@@ -29,7 +32,7 @@ export const users = databaseSIRS.define('users', {
 
 export const insertData = (data, callback) => {
     const sqlInsert = 'INSERT INTO users (nama,email,password,rs_id) VALUES ( ? )'
-    database.query(sqlInsert, {
+    databaseSIRS.query(sqlInsert, {
         type: QueryTypes.INSERT,
         replacements: [data]
     })

@@ -7,8 +7,6 @@ import { getDataJenisPelayanan } from '../controllers/JenisPelayananController.j
 import { getDataJenisSpesialis } from '../controllers/JenisSpesialisController.js'
 import { getDataJenisTindakan, getDataGroupJenisTindakan } from '../controllers/JenisGroupTindakanController.js'
 import { getDataRumahSakit, getDataRumahSakitFilterbyKabKotaId } from '../controllers/RumahSakitController.js'
-import { getDataJenisGolonganSebabPenyakit, getDataJenisGolonganSebabPenyakitB, getDataJenisGolonganSebabPenyakitBId } from '../controllers/JenisGolonganSebabPenyakitController.js'
-import {  getDataJenisGolonganPenyakitB,  getDataJenisGolonganPenyakitBId} from '../controllers/JenisGolonganPenyakitController.js'
 
 import { getDataKabKota, getDataKabKotabyID } from '../controllers/KabKotaController.js'
 
@@ -46,39 +44,37 @@ router.get('/apisirs/jenisgrouptindakan', verifyToken, getDataGroupJenisTindakan
 router.get('/apisirs/jenistindakan', verifyToken,
     getDataJenisTindakan)
 
-router.get('/apisirs/jenisgolongansebabpenyakit', verifyToken, getDataJenisGolonganSebabPenyakit)
-
 
 // DINKES PROVINSI
-router.post('/apisirsadmin/login', loginadmin)
-router.delete('/apisirsadmin/logout', logoutadmin)
-router.get('/apisirsadmin/token', refreshToken)
+router.post('/apisirs/loginadmin', loginadmin)
+router.delete('/apisirs/logoutadmin', logoutadmin)
+router.get('/apisirs/token', refreshToken)
 
-// Get Data Dinkes
-router.get('/apisirs/apisirsadmin/:id', verifyToken, getDataRumahSakit)
+// // Get Data Dinkes
+// router.get('/apisirs/apisirs/:id', verifyToken, getDataRumahSakit)
 
 // GET DATA KAB KOTA
-router.get('/apisirsadmin/kabkota', verifyToken, getDataKabKota)
+router.get('/apisirs/kabkota', verifyToken, getDataKabKota)
 
-// GET DATA KABKOTA DINKES KAB
-router.get('/apisirsadmin/kabkotaid', verifyToken, getDataKabKotabyID)
+// // GET DATA KABKOTA DINKES KAB
+// router.get('/apisirs/kabkotaid', verifyToken, getDataKabKotabyID)
 
 // GET DATA RS BY KAB KOTA
-router.get('/apisirsadmin/rumahsakit/:kabkotaid', verifyToken, getDataRumahSakitFilterbyKabKotaId)
+router.get('/apisirs/rumahsakit', verifyToken, getDataRumahSakitFilterbyKabKotaId)
 
 // DINKES KAB/KOTA
 
 
 // GET DATA
-router.get('/apisirsadmin/rltigatitiktujuh', verifyToken, getDataRLTigaTitikTujuhKodeRSTahun)
-router.get('/apisirsadmin/rltigatitikduabelas', verifyToken, getDataRLTigaTitikDuaBelasKodeRSTahun)
-router.get('/apisirsadmin/rltigatitiktigabelasa', verifyToken, getDataRLTigaTitikTigaBelasAKodeRSTahun)
-router.get('/apisirsadmin/rltigatitiktigabelasb', verifyToken, getDataRLTigaTitikTigaBelasBKodeRSTahun)
-router.get('/apisirsadmin/rllimatitikempat', verifyToken, getDataRLLimaTitikEmpatKodeRSTahun)
+router.get('/apisirs/rltigatitiktujuhadmin', verifyToken, getDataRLTigaTitikTujuhKodeRSTahun)
+router.get('/apisirs/rltigatitikduabelasadmin', verifyToken, getDataRLTigaTitikDuaBelasKodeRSTahun)
+router.get('/apisirs/rltigatitiktigabelasaadmin', verifyToken, getDataRLTigaTitikTigaBelasAKodeRSTahun)
+router.get('/apisirs/rltigatitiktigabelasbadmin', verifyToken, getDataRLTigaTitikTigaBelasBKodeRSTahun)
+router.get('/apisirs/rllimatitikempatadmin', verifyToken, getDataRLLimaTitikEmpatKodeRSTahun)
 
 // Validasi Data
-router.get('/apisirsadmin/validasi', verifyToken, getDataValidasiByRsId)
-router.post('/apisirsadmin/validasi', verifyToken, insertValidasi)
-router.patch('/apisirsadmin/validasi/:id', verifyToken, updateValidasi)
-router.get('/apisirsadmin/statusvalidasi',  getStatusValidasi)
+router.get('/apisirs/validasi', verifyToken, getDataValidasiByRsId)
+router.post('/apisirs/validasi', verifyToken, insertValidasi)
+router.patch('/apisirs/validasi/:id', verifyToken, updateValidasi)
+router.get('/apisirs/statusvalidasi',  getStatusValidasi)
 export default router
