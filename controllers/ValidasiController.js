@@ -49,7 +49,6 @@ export const insertValidasi = async (req, res) => {
         return;
     }
 
-    const transaction = await databaseSIRS.transaction()
     try {
         const dataValidasi = {
             "rs_id": req.body.rsId,
@@ -61,18 +60,18 @@ export const insertValidasi = async (req, res) => {
         }
 
         const rlInsertHeader = await validasi.create(
-            dataValidasi,
-            { transaction: transaction }
+            dataValidasi
         );
 
-        await transaction.commit();
         res.status(201).send({
             status: true,
             message: "data berhasil di input",
+            data: {
+                id: rlInsertHeader.id
+            }
         });
     } catch (error) {
         console.log(error)
-        await transaction.rollback()
         if (error.name === 'SequelizeUniqueConstraintError') {
             res.status(400).send({
                 status: false,
